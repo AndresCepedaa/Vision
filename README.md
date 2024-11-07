@@ -15,7 +15,7 @@ This document provides an overview of different computer vision techniques used 
 
 ## Examples of Object Detection
 Here are a couple of examples of object detection applications:
-* [Hand Detection](https://gerardomunoz.github.io/Vision/Hand_Detection.html) - A demo of detecting hands in real-time.
+* [Hand Detection](https://andrescepedaa.github.io/Vision/Hand_Detection.html) - A demo of detecting hands in real-time.
 * [Hand Detection Landmark](https://gerardomunoz.github.io/Vision/Hand_Detection_LandMark.html) - Example showcasing hand landmark detection for gesture recognition.
 
 ## Challenge
