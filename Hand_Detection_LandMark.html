@@ -70,29 +70,36 @@ async function predictWebcam() {
     // Clear the canvas before each frame
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // If landmarks are detected, iterate through them
-    if (results.landmarks) {
-      for (const landmarks of results.landmarks) {
-        // Draw landmarks and connections
-        drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: "#00FF00", lineWidth: 5 });
-        drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
+// If landmarks are detected, iterate through them
+if (results.landmarks) {
+  for (const landmarks of results.landmarks) {
+    // Draw landmarks and connections
+    drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: "#00FF00", lineWidth: 5 });
+    drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
 
-        // Loop through each landmark and print its coordinates on the canvas
-        landmarks.forEach((landmark, index) => {
-          const { x, y, z } = landmark;
-          
-          // Convert normalized coordinates (0 to 1) to canvas coordinates
-          const canvasX = x * canvas.width;
-          const canvasY = y * canvas.height;
+    // Loop through each landmark and print its coordinates on the canvas
+    landmarks.forEach((landmark, index) => {
+      const { x, y, z } = landmark;
+      
+      // Convert normalized coordinates (0 to 1) to canvas coordinates
+      const canvasX = x * canvas.width;
+      const canvasY = y * canvas.height;
 
-          // Draw the coordinates as text near each landmark point
-          canvasCtx.fillStyle = "#0000FF"; // Text color
-          canvasCtx.font = "12px Arial";
-          canvasCtx.fillText(`(${canvasX.toFixed(1)}, ${canvasY.toFixed(1)}, ${z.toFixed(2)})`, canvasX, canvasY);
-        });
+      // Draw the coordinates as text near each landmark point
+      canvasCtx.fillStyle = "#0000FF"; // Text color
+      canvasCtx.font = "12px Arial";
+      canvasCtx.fillText(`(${canvasX.toFixed(1)}, ${canvasY.toFixed(1)}, ${z.toFixed(2)})`, canvasX, canvasY);
+
+      // Color the tip of the index finger (landmark index 8)
+      if (index === 8) {
+        canvasCtx.fillStyle = "#FFFF00"; // Yellow color for the tip of the index finger
+        canvasCtx.beginPath();
+        canvasCtx.arc(canvasX, canvasY, 8, 0, Math.PI * 2); // Draw a circle around the tip
+        canvasCtx.fill();
       }
-    }
+    });
   }
+}
 
   // Call this function again for the next frame
   requestAnimationFrame(predictWebcam);
